@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Aditi! 💕 | 8th September</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosepink: '#ff4d6d',
+                        softpink: '#fff0f3',
+                        blush: '#ffb3c1',
+                        deeprose: '#c9184a',
+                        gold: '#ffb703',
+                        softpurple: '#f72585'
+                    },
+                    fontFamily: {
+                        handwriting: ['Dancing Script', 'cursive'],
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-b from-pink-50 via-rose-50 to-pink-100 text-slate-800 antialiased overflow-x-hidden min-h-screen font-sans relative selection:bg-pink-300">
+
+    <!-- Background Animated Canvas -->
+    <canvas id="bgCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Floating Audio Control Widget -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-pink-200 hover:shadow-xl transition-all">
+        <button id="musicToggleBtn" class="flex items-center gap-2 text-xs font-semibold text-rose-600 focus:outline-none">
+            <span id="musicIcon" class="p-1 bg-pink-100 rounded-full"><i data-lucide="music" class="w-4 h-4 text-rose-600"></i></span>
+            <span id="musicText">Play Romantic Melody 🎵</span>
+        </button>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-8 space-y-16">
+
+        <!-- HERO SECTION -->
+        <header class="text-center pt-8 pb-4 space-y-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold tracking-wide shadow-sm animate-pulse border border-rose-200">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+                <span>Celebrating Aditi's Birthday • September 8th</span>
+                <i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-rose-500"></i>
+            </div>
+
+            <h1 id="heroTitle" class="font-serif text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 drop-shadow-sm tracking-tight">
+                Happy Birthday, Aditi! 💖
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+                To the girl who fills my life with endless joy, laughter, and sweetness. Today and every day is all about celebrating <span class="text-rose-600 font-semibold underline decoration-rose-300 decoration-2">YOU</span>!
+            </p>
+
+            <!-- COUNTDOWN TIMER CONTAINER -->
+            <div class="bg-white/70 backdrop-blur-lg rounded-3xl p-6 md:p-8 shadow-xl border border-pink-200/80 max-w-3xl mx-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs md:text-sm font-bold uppercase tracking-wider text-rose-500 flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-4 h-4"></i> Countdown to 8th September
+                    </span>
+                    <span id="statusBadge" class="text-xs bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-medium">
+                        Counting down...
+                    </span>
+                </div>
+
+                <div id="countdownGrid" class="grid grid-cols-4 gap-3 md:gap-6 text-center">
+                    <div class="bg-gradient-to-b from-rose-500 to-pink-600 text-white rounded-2xl p-3 md:p-5 shadow-md transform hover:scale-105 transition-transform">
+                        <div id="days" class="text-3xl md:text-5xl font-black font-mono">00</div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest font-semibold mt-1 opacity-90">Days</div>
+                    </div>
+                    <div class="bg-gradient-to-b from-rose-500 to-pink-600 text-white rounded-2xl p-3 md:p-5 shadow-md transform hover:scale-105 transition-transform">
+                        <div id="hours" class="text-3xl md:text-5xl font-black font-mono">00</div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest font-semibold mt-1 opacity-90">Hours</div>
+                    </div>
+                    <div class="bg-gradient-to-b from-rose-500 to-pink-600 text-white rounded-2xl p-3 md:p-5 shadow-md transform hover:scale-105 transition-transform">
+                        <div id="minutes" class="text-3xl md:text-5xl font-black font-mono">00</div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest font-semibold mt-1 opacity-90">Mins</div>
+                    </div>
+                    <div class="bg-gradient-to-b from-rose-500 to-pink-600 text-white rounded-2xl p-3 md:p-5 shadow-md transform hover:scale-105 transition-transform">
+                        <div id="seconds" class="text-3xl md:text-5xl font-black font-mono">00</div>
+                        <div class="text-[10px] md:text-xs uppercase tracking-widest font-semibold mt-1 opacity-90">Secs</div>
+                    </div>
+                </div>
+
+                <div id="birthdayCelebrationMessage" class="hidden py-4 text-center">
+                    <h2 class="text-3xl font-bold font-serif text-rose-600 animate-bounce">🎉 IT'S ADITI'S BIRTHDAY TODAY! 🎉</h2>
+                    <p class="text-slate-600 mt-2">Make a wish, blow out the candles, and let's celebrate!</p>
+                </div>
+            </div>
+
+            <!-- QUICK NAVIGATION BUTTONS -->
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <button onclick="openLetterModal()" class="flex items-center gap-2 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-pink-300/50 hover:scale-105 transition-all">
+                    <i data-lucide="mail-open" class="w-5 h-5"></i> Read My Letter 💌
+                </button>
+                <a href="#cakeSection" class="flex items-center gap-2 bg-white hover:bg-rose-50 text-rose-600 border-2 border-rose-300 px-6 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-all">
+                    <i data-lucide="cake" class="w-5 h-5"></i> Blow Candles 🎂
+                </a>
+                <a href="#gallerySection" class="flex items-center gap-2 bg-white hover:bg-rose-50 text-rose-600 border-2 border-rose-300 px-6 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition-all">
+                    <i data-lucide="image" class="w-5 h-5"></i> Photo Memories 📸
+                </a>
+            </div>
+        </header>
+
+        <!-- SECTION 2: INTERACTIVE ENVELOPE / LOVE LETTER -->
+        <section class="text-center py-6">
+            <div class="inline-block relative cursor-pointer group" onclick="openLetterModal()">
+                <div class="absolute -top-3 -right-3 bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-20 animate-bounce">
+                    Click to Open! 💌
+                </div>
+                <!-- 3D Envelope Container -->
+                <div class="relative w-72 h-48 md:w-80 md:h-52 bg-rose-200 rounded-2xl shadow-2xl border-4 border-rose-300 flex items-center justify-center overflow-hidden transform group-hover:scale-105 group-hover:-rotate-1 transition-all duration-300">
+                    <!-- Envelope Flap Top -->
+                    <div class="absolute top-0 inset-x-0 h-24 bg-rose-300 clip-envelope-flap shadow-md group-hover:bg-rose-400 transition-colors"></div>
+                    <!-- Wax Seal -->
+                    <div class="relative z-10 w-16 h-16 bg-gradient-to-br from-rose-600 to-red-700 rounded-full shadow-xl flex items-center justify-center border-2 border-amber-300 group-hover:scale-110 transition-transform">
+                        <i data-lucide="heart" class="w-8 h-8 text-white fill-white"></i>
+                    </div>
+                    <p class="absolute bottom-3 text-xs font-bold text-rose-700 tracking-wider uppercase">For Aditi Yadav, My Love</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: REASONS WHY I LOVE YOU (3D FLIP CARDS) -->
+        <section class="space-y-8">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-rose-700">Reasons Why You're So Special 🌸</h2>
+                <p class="text-slate-600 text-sm md:text-base">Tap any card to reveal why I love you so much!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Flip Card 1 -->
+                <div class="flip-card h-64 rounded-2xl shadow-lg cursor-pointer">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl transition-transform duration-700">
+                        <div class="flip-card-front absolute inset-0 bg-white/90 backdrop-blur-md rounded-2xl border border-pink-200 p-6 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
+                            <div class="p-3 bg-pink-100 rounded-2xl text-rose-600">
+                                <i data-lucide="smile" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800">Your Smile 😊</h3>
+                            <p class="text-xs text-rose-500 font-semibold uppercase tracking-wider">Tap to Flip</p>
+                        </div>
+                        <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-amber-300"></i>
+                            <p class="text-sm font-medium leading-relaxed">
+                                "The way your eyes crinkle when you laugh can instantly turn around my hardest days."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 2 -->
+                <div class="flip-card h-64 rounded-2xl shadow-lg cursor-pointer">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl transition-transform duration-700">
+                        <div class="flip-card-front absolute inset-0 bg-white/90 backdrop-blur-md rounded-2xl border border-pink-200 p-6 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
+                            <div class="p-3 bg-pink-100 rounded-2xl text-rose-600">
+                                <i data-lucide="heart-handshake" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800">Your Kind Heart 💕</h3>
+                            <p class="text-xs text-rose-500 font-semibold uppercase tracking-wider">Tap to Flip</p>
+                        </div>
+                        <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3">
+                            <i data-lucide="heart" class="w-6 h-6 text-pink-200 fill-pink-200"></i>
+                            <p class="text-sm font-medium leading-relaxed">
+                                "You care so genuinely for the people you love. Your kindness is a breath of fresh air."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 3 -->
+                <div class="flip-card h-64 rounded-2xl shadow-lg cursor-pointer">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl transition-transform duration-700">
+                        <div class="flip-card-front absolute inset-0 bg-white/90 backdrop-blur-md rounded-2xl border border-pink-200 p-6 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
+                            <div class="p-3 bg-pink-100 rounded-2xl text-rose-600">
+                                <i data-lucide="sun" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800">Your Warmth ☀️</h3>
+                            <p class="text-xs text-rose-500 font-semibold uppercase tracking-wider">Tap to Flip</p>
+                        </div>
+                        <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3">
+                            <i data-lucide="sun" class="w-6 h-6 text-amber-300"></i>
+                            <p class="text-sm font-medium leading-relaxed">
+                                "Being with you feels like home. You make every ordinary moment feel extraordinary."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 4 -->
+                <div class="flip-card h-64 rounded-2xl shadow-lg cursor-pointer">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl transition-transform duration-700">
+                        <div class="flip-card-front absolute inset-0 bg-white/90 backdrop-blur-md rounded-2xl border border-pink-200 p-6 flex flex-col items-center justify-center text-center space-y-4 shadow-sm">
+                            <div class="p-3 bg-pink-100 rounded-2xl text-rose-600">
+                                <i data-lucide="infinity" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800">Our Future 🚀</h3>
+                            <p class="text-xs text-rose-500 font-semibold uppercase tracking-wider">Tap to Flip</p>
+                        </div>
+                        <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-rose-500 to-pink-600 text-white rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3">
+                            <i data-lucide="star" class="w-6 h-6 text-amber-300 fill-amber-300"></i>
+                            <p class="text-sm font-medium leading-relaxed">
+                                "I look forward to endless adventures, laughter, and milestones together with you!"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: POLAROID PHOTO GALLERY -->
+        <section id="gallerySection" class="space-y-8 pt-4">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-rose-700">Our Memory Lane 📸</h2>
+                <p class="text-slate-600 text-sm md:text-base">Moments captured in time. (Tap any photo to expand!)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Polaroid Item 1 -->
+                <div class="polaroid-card bg-white p-4 pb-6 rounded-lg shadow-xl border border-slate-100 transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openLightbox('The Day We Met ✨', 'A beautiful beginning to an incredible journey together.', 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80')">
+                    <div class="relative overflow-hidden rounded-sm aspect-square bg-rose-100">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80" alt="Romantic Memory 1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-handwriting text-2xl text-slate-800 font-bold">The Magical Beginning ✨</p>
+                        <p class="text-xs text-slate-400 mt-1">September Magic</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid Item 2 -->
+                <div class="polaroid-card bg-white p-4 pb-6 rounded-lg shadow-xl border border-slate-100 transform rotate-3 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openLightbox('Your Laugh & Joy 😄', 'Your laughter is literally my favorite sound in the world.', 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80')">
+                    <div class="relative overflow-hidden rounded-sm aspect-square bg-pink-100">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Romantic Memory 2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-handwriting text-2xl text-slate-800 font-bold">Endless Smiles 😄</p>
+                        <p class="text-xs text-slate-400 mt-1">Every Single Day</p>
+                    </div>
+                </div>
+
+                <!-- Polaroid Item 3 -->
+                <div class="polaroid-card bg-white p-4 pb-6 rounded-lg shadow-xl border border-slate-100 transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" onclick="openLightbox('My Favorite Person 💖', 'Celebrating Aditi Yadav - the star of my life!', 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80')">
+                    <div class="relative overflow-hidden rounded-sm aspect-square bg-purple-100">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80" alt="Romantic Memory 3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="font-handwriting text-2xl text-slate-800 font-bold">Forever & Always 💖</p>
+                        <p class="text-xs text-slate-400 mt-1">8th September Celebration</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Note for User on how to swap photos -->
+            <div class="bg-rose-50/80 border border-rose-200 rounded-2xl p-4 text-center text-xs text-rose-700 max-w-xl mx-auto">
+                💡 <span class="font-bold">Tip:</span> You can easily replace these image URLs in <code class="bg-rose-100 px-1 rounded">index.html</code> with actual photos of you and Aditi!
+            </div>
+        </section>
+
+        <!-- SECTION 5: INTERACTIVE BIRTHDAY CAKE & BLOW CANDLES -->
+        <section id="cakeSection" class="py-8 bg-white/70 backdrop-blur-lg rounded-3xl p-8 shadow-xl border border-pink-200 text-center space-y-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-rose-600 bg-rose-100 px-3 py-1 rounded-full">
+                    <i data-lucide="cake" class="w-4 h-4"></i> Make a Wish!
+                </div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-rose-700">Blow out the Birthday Candles 🎂</h2>
+                <p class="text-slate-600 text-sm">Click on the flames or tap the button below to blow out candles and release fireworks!</p>
+            </div>
+
+            <!-- SVG Animated Birthday Cake -->
+            <div class="relative w-64 h-64 mx-auto flex items-end justify-center">
+                <!-- Cake SVG -->
+                <svg class="w-60 h-52 overflow-visible" viewBox="0 0 200 180">
+                    <!-- Base Plate -->
+                    <ellipse cx="100" cy="165" rx="90" ry="12" fill="#e2e8f0"/>
+                    <ellipse cx="100" cy="162" rx="85" ry="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                    
+                    <!-- Bottom Layer -->
+                    <rect x="30" y="110" width="140" height="45" rx="8" fill="#f472b6"/>
+                    <path d="M30 110 Q 50 125, 70 110 Q 90 125, 110 110 Q 130 125, 150 110 Q 170 125, 170 110 L170 120 Q 150 135, 130 120 Q 110 135, 90 120 Q 70 135, 50 120 Q 30 135, 30 120 Z" fill="#fb7185"/>
+
+                    <!-- Top Layer -->
+                    <rect x="45" y="70" width="110" height="42" rx="6" fill="#fb7185"/>
+                    <!-- Frosting drips -->
+                    <path d="M45 70 Q 60 82, 75 70 Q 90 82, 105 70 Q 120 82, 135 70 Q 150 82, 155 70 L155 78 Q 135 90, 120 78 Q 105 90, 90 78 Q 75 90, 60 78 Q 45 90, 45 78 Z" fill="#ffffff"/>
+
+                    <!-- Candle 1 (Left) -->
+                    <rect x="65" y="42" width="8" height="28" fill="#38bdf8" rx="2"/>
+                    <line x1="69" y1="36" x2="69" y2="42" stroke="#475569" stroke-width="2"/>
+                    <!-- Flame 1 -->
+                    <g id="flame1" class="candle-flame cursor-pointer" onclick="toggleCandle(1)">
+                        <ellipse cx="69" cy="30" rx="6" ry="10" fill="#fbbf24" class="animate-pulse"/>
+                        <ellipse cx="69" cy="32" rx="3" ry="6" fill="#f97316"/>
+                    </g>
+
+                    <!-- Candle 2 (Middle) -->
+                    <rect x="96" y="38" width="8" height="32" fill="#f43f5e" rx="2"/>
+                    <line x1="100" y1="32" x2="100" y2="38" stroke="#475569" stroke-width="2"/>
+                    <!-- Flame 2 -->
+                    <g id="flame2" class="candle-flame cursor-pointer" onclick="toggleCandle(2)">
+                        <ellipse cx="100" cy="24" rx="7" ry="11" fill="#fbbf24" class="animate-pulse"/>
+                        <ellipse cx="100" cy="26" rx="3.5" ry="7" fill="#f97316"/>
+                    </g>
+
+                    <!-- Candle 3 (Right) -->
+                    <rect x="127" y="42" width="8" height="28" fill="#a855f7" rx="2"/>
+                    <line x1="131" y1="36" x2="131" y2="42" stroke="#475569" stroke-width="2"/>
+                    <!-- Flame 3 -->
+                    <g id="flame3" class="candle-flame cursor-pointer" onclick="toggleCandle(3)">
+                        <ellipse cx="131" cy="30" rx="6" ry="10" fill="#fbbf24" class="animate-pulse"/>
+                        <ellipse cx="131" cy="32" rx="3" ry="6" fill="#f97316"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div>
+                <button id="blowCandlesBtn" onclick="blowOutAllCandles()" class="bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-white font-bold px-8 py-3.5 rounded-full shadow-lg hover:shadow-amber-200 hover:scale-105 transition-all inline-flex items-center gap-2">
+                    <i data-lucide="wind" class="w-5 h-5"></i> Blow Out All Candles 💨
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 6: "HOW WELL DO YOU KNOW US?" LOVE QUIZ -->
+        <section class="space-y-6 pt-4">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-rose-700">The Aditi Special Quiz 🎯</h2>
+                <p class="text-slate-600 text-sm">Let's see how well you answer these fun questions!</p>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-lg rounded-3xl p-6 md:p-8 shadow-xl border border-pink-200 max-w-2xl mx-auto space-y-6">
+                <div id="quizContainer">
+                    <div class="flex justify-between items-center text-xs font-bold text-rose-500 mb-4">
+                        <span id="quizProgress">Question 1 of 3</span>
+                        <span id="quizScoreBadge">Score: 0</span>
+                    </div>
+
+                    <h3 id="quizQuestion" class="text-xl font-bold text-slate-800 mb-6">
+                        What makes Aditi Yadav truly one of a kind?
+                    </h3>
+
+                    <div id="quizOptions" class="space-y-3">
+                        <!-- Options injected dynamically by JS -->
+                    </div>
+                </div>
+
+                <div id="quizResult" class="hidden text-center space-y-4 py-4">
+                    <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl font-black">
+                        🏆
+                    </div>
+                    <h3 class="text-2xl font-bold text-rose-700 font-serif">Quiz Completed!</h3>
+                    <p id="quizResultMessage" class="text-slate-600 font-medium">You got 100% correct! You are officially the sweetest girlfriend ever!</p>
+                    <button onclick="resetQuiz()" class="text-xs bg-rose-100 text-rose-700 font-bold px-4 py-2 rounded-full hover:bg-rose-200 transition-colors">
+                        Play Again 🔄
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center py-8 text-slate-500 text-xs space-y-2 border-t border-pink-200">
+            <p class="flex items-center justify-center gap-1 font-semibold text-rose-600">
+                Created with infinite love for <span class="underline">Aditi Yadav</span> ❤️
+            </p>
+            <p>Happy Birthday • 8th September 2026</p>
+        </footer>
+
+    </div>
+
+    <!-- MODAL 1: LOVE LETTER POPUP -->
+    <div id="letterModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-gradient-to-b from-amber-50 to-pink-50 rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl border-4 border-rose-200 relative transform transition-all scale-95 opacity-0 modal-anim space-y-6 max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeLetterModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-rose-600 rounded-full bg-white shadow-md">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold text-rose-500 uppercase tracking-widest">A Personal Note</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-rose-700">Dearest Aditi, 💌</h2>
+            </div>
+
+            <div class="space-y-4 text-slate-700 text-base md:text-lg leading-relaxed font-sans border-t border-b border-rose-200/80 py-4">
+                <p>
+                    Happy Birthday to the most special, beautiful, and wonderful person in my life!
+                </p>
+                <p>
+                    From the moment you came into my world, every day has felt infinitely brighter and sweeter. Your smile has this magical way of instantly melting away all my stress, and your laughter is honestly my absolute favorite sound in the universe.
+                </p>
+                <p>
+                    Thank you for being my girlfriend, my confidante, my biggest supporter, and my best friend. On this 8th of September, I want to remind you just how deeply loved, valued, and cherished you are.
+                </p>
+                <p>
+                    May this year bring you endless happiness, good health, all your dream goals, and endless cozy moments together. I'm so lucky to walk beside you.
+                </p>
+                <p class="font-handwriting text-3xl text-rose-600 font-bold pt-2 text-right">
+                    With all my love, forever ❤️
+                </p>
+            </div>
+
+            <div class="text-center">
+                <button onclick="closeLetterModal()" class="bg-rose-600 text-white font-bold px-8 py-3 rounded-full hover:bg-rose-700 transition-colors shadow-lg">
+                    Close with a Smile 😊
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: LIGHTBOX PHOTO PREVIEW -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="bg-white rounded-3xl p-4 md:p-6 max-w-xl w-full shadow-2xl relative text-center space-y-4" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-rose-600 rounded-full bg-slate-100">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <img id="lightboxImg" src="" alt="Expanded Memory" class="w-full max-h-[60vh] object-cover rounded-2xl shadow-md">
+            <div>
+                <h3 id="lightboxTitle" class="text-xl font-bold text-slate-800 font-serif"></h3>
+                <p id="lightboxDesc" class="text-sm text-slate-600 mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/* Custom CSS Styles for Aditi Yadav's Birthday Website */
+
+/* 3D Flip Card Effect */
+.flip-card {
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* Envelope Flap Custom Clip Path */
+.clip-envelope-flap {
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* Modal Open Animation */
+.modal-anim {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-open .modal-anim {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Candle Flames Extinction Styling */
+.candle-flame.extinguished {
+    display: none !important;
+}
+
+/* Polaroid Card Tape effect */
+.polaroid-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    h: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px dashed rgba(200, 200, 200, 0.4);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index: 10;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
